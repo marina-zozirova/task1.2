@@ -4,24 +4,28 @@ namespace app\controllers;
 
 use Yii;
 use yii\web\Controller;
-use app\models\StudentForm;
+use app\models\Student;
+use yii\data\SqlDataProvider;
 
 class MainController extends Controller {
+    public function actionIndex() {
+        $dataProvider = new SqlDataProvider([
+            'sql' => 'SELECT * FROM student'
+        ]);
 
-    public function addToFile($student)  {
-        file_put_contents("student.txt", "{$student}", FILE_APPEND);
+        return $this->render('index', ['dataProvider' => $dataProvider]);
     }
-    
-    public function actionStudent() {
-        $model = new StudentForm();        
 
+    public function actionStudent() {
+        $model = new Student();  
         if ($model->load(Yii::$app->request->post())) {
-            $student = $model->name . ' ' . $model->date . ' ' .$model->address . ' ' . $model->number . "\n";
-            $this->addToFile($student);
-            $this->refresh();
-            return $this->render('student', ['model' => $model]);
-        } else {
-            return $this->render('student', ['model' => $model]);
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', true);
+                return $this->refresh();
+            } else {
+                Yii::$app->session->setFlash('success', false);
+            }
         }
+        return $this->render('student', ['model' => $model]);
     }
 }

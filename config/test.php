@@ -12,6 +12,11 @@ return [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'modules' => [
+        'gridview' => [
+            'class' => 'kartik\grid\Module',
+        ],
+    ],
     'language' => 'en-US',
     'components' => [
         'db' => $db,
