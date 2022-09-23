@@ -1,14 +1,16 @@
 <?php
     use yii\helpers\Html;
-    use yii\widgets\ActiveForm;
+    use yii\bootstrap5\ActiveForm;
 ?>
 
 <?php 
     $form = ActiveForm::begin();
 ?>
 
-<?= $form->field($model, 'name') ?>
-<?= $form->field($model, 'date') ?>
+<?= $form->field($model, 'surname') ?>
+<?= $form->field($model, 'firstName') ?>
+<?= $form->field($model, 'patronymic') ?>
+<?= $form->field($model, 'dateOfBirth')->textInput(['type' => 'date']); ?>
 <?= $form->field($model, 'address') ?>
 <?= $form->field($model, 'number') ?>
 
